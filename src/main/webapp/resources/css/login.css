@@ -1,0 +1,32 @@
+.set-logo {
+    background:#fff;
+    color:#ddd;
+    border-radius:500%;
+    padding:11px;
+    font-size:108px;
+    border: solid #ddd 14px;
+}
+.logo {
+    margin-top:27px;
+    margin-bottom:54px;
+}
+
+.last-row {
+    margin-bottom:0px;
+}
+
+.checklabel {
+    font-weight:100;
+}
+
+html, body, .container-table {
+    height: 100%;
+}
+
+.container-table {
+    display: table;
+}
+.vertical-center-row {
+    display: table-cell;
+    vertical-align: middle;
+}
