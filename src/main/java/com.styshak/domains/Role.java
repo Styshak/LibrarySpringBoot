@@ -1,4 +1,4 @@
-package com.styshak.domain;
+package com.styshak.domains;
 
 
 import lombok.Data;

@@ -23,17 +23,17 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http
 				.authorizeRequests()
-				.antMatchers("/resources/**").permitAll()
+				.antMatchers("/resources/**", "/register").permitAll()
 				.anyRequest().authenticated()
 				.and()
-				.formLogin().permitAll()
+				.formLogin().loginPage("/login").permitAll()
 				.and()
 				.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).permitAll();
 	}
 
 	@Bean
 	public PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
+		return new BCryptPasswordEncoder(11);
 	}
 
 	@Autowired
