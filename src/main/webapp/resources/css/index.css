@@ -48,7 +48,7 @@ body {
 	margin: 15px 0px 0px !important;
 }
 
-.row-search {
+.row-marging {
 	margin-bottom:15px;
 }
 
@@ -73,4 +73,7 @@ body {
 .list-group-horizontal .list-group-item:last-child {
 	border-top-right-radius:4px;
 	border-bottom-left-radius:0;
+}
+.btn-edit-book {
+	width: 110px;
 }
