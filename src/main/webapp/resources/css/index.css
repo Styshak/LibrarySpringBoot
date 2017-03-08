@@ -33,6 +33,7 @@ body {
 	padding-right: 10px;
 	padding-left: 10px;
 	color: #d17581;
+	margin-top: 10px;
 }
 
 .thumbnail {
@@ -75,5 +76,5 @@ body {
 	border-bottom-left-radius:0;
 }
 .btn-edit-book {
-	width: 110px;
+	width: 45%;
 }

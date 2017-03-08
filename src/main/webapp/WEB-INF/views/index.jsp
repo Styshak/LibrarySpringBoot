@@ -1,5 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<%--@elvariable id="genreService" type="com.styshak.services.GenreService"--%>
+
 <html>
 <head>
 	<title>Title</title>
@@ -57,9 +60,9 @@
 		<div class="col-md-3">
 			<p class="lead">Online library</p>
 			<div class="list-group">
-				<a href="#" class="list-group-item">Category 1</a>
-				<a href="#" class="list-group-item">Category 2</a>
-				<a href="#" class="list-group-item">Category 3</a>
+				<c:forEach items="${genreService.findAll()}" var="g">
+					<a href="#" class="list-group-item">${g.name}</a>
+				</c:forEach>
 			</div>
 		</div>
 
@@ -82,7 +85,7 @@
 				</div>
 
 				<div class="col-sm-2 col-lg-2 col-md-2">
-					<button type="button" class="btn btn-default pull-right">Search</button>
+					<button type="button" class="btn btn-primary pull-right">Search</button>
 				</div>
 
 			</div>
