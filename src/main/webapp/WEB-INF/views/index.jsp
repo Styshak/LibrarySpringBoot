@@ -198,7 +198,7 @@
 </nav>
 <script type="text/javascript">
 	$( document ).ready(function() {
-		$('.list-group-horizontal .list-group-item').css('width','calc(100% / ${fn:length(letter.letters)} + 0.01%)');
+		$('.list-group-horizontal .list-group-item').css('width','calc(100% / ${fn:length(letter.letters)})');
 	});
 </script>
 </body>
