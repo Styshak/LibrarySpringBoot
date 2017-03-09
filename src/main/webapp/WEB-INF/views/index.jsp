@@ -1,7 +1,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%--@elvariable id="genreService" type="com.styshak.services.GenreService"--%>
+<%--@elvariable id="letter" type="com.styshak.utils.Letter"--%>
 
 <html>
 <head>
@@ -46,6 +48,16 @@
 					</ul>
 				</li>
 			</ul>
+			<div class="nav navbar-nav navbar-right">
+				<ul class="nav navbar-nav">
+					<li class="locale">
+						<a href="?lang=ru"><img src="/resources/images/ru.png" width="25" height="25"></a>
+					</li>
+					<li>
+						<a href="?lang=en"><img src="/resources/images/eng.png" width="25" height="25"></a>
+					</li>
+				</ul>
+			</div>
 		</div>
 
 	</div>
@@ -93,36 +105,9 @@
 			<div class="row">
 				<div class="col-sm-12 col-lg-12 col-md-12">
 					<div class="list-group list-group-horizontal">
-						<a href="#" class="list-group-item">А</a>
-						<a href="#" class="list-group-item">Б</a>
-						<a href="#" class="list-group-item">В</a>
-						<a href="#" class="list-group-item">Г</a>
-						<a href="#" class="list-group-item">Д</a>
-						<a href="#" class="list-group-item">Е</a>
-						<a href="#" class="list-group-item">Ё</a>
-						<a href="#" class="list-group-item">Ж</a>
-						<a href="#" class="list-group-item">З</a>
-						<a href="#" class="list-group-item">И</a>
-						<a href="#" class="list-group-item">Й</a>
-						<a href="#" class="list-group-item">К</a>
-						<a href="#" class="list-group-item">Л</a>
-						<a href="#" class="list-group-item">М</a>
-						<a href="#" class="list-group-item">Н</a>
-						<a href="#" class="list-group-item">О</a>
-						<a href="#" class="list-group-item">П</a>
-						<a href="#" class="list-group-item">Р</a>
-						<a href="#" class="list-group-item">С</a>
-						<a href="#" class="list-group-item">Т</a>
-						<a href="#" class="list-group-item">У</a>
-						<a href="#" class="list-group-item">Ф</a>
-						<a href="#" class="list-group-item">Х</a>
-						<a href="#" class="list-group-item">Ц</a>
-						<a href="#" class="list-group-item">Ч</a>
-						<a href="#" class="list-group-item">Ш</a>
-						<a href="#" class="list-group-item">Щ</a>
-						<a href="#" class="list-group-item">Э</a>
-						<a href="#" class="list-group-item">Ю</a>
-						<a href="#" class="list-group-item">Я</a>
+						<c:forEach var="l" items="${letter.letters}">
+							<a href="#" class="list-group-item">${l}</a>
+						</c:forEach>
 					</div>
 				</div>
 			</div>
@@ -211,5 +196,10 @@
 
 	</div>
 </nav>
+<script type="text/javascript">
+	$( document ).ready(function() {
+		$('.list-group-horizontal .list-group-item').css('width','calc(100% / ${fn:length(letter.letters)} + 0.01%)');
+	});
+</script>
 </body>
 </html>

@@ -64,7 +64,8 @@ body {
 	margin-bottom: 0;
 	margin-left:-4px;
 	margin-right: 0;
-	padding: 0.96%;
+	padding: 5px 0px 5px 0px;
+	text-align: center
 }
 .list-group-horizontal .list-group-item:first-child {
 	border-top-right-radius:0;
@@ -77,4 +78,8 @@ body {
 }
 .btn-edit-book {
 	width: 45%;
+}
+
+.locale {
+	margin-right: -25px;
 }
