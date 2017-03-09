@@ -12,6 +12,8 @@ import java.io.Serializable;
 @Table
 public class Role implements GrantedAuthority, Serializable {
 
+	private static final long serialVersionUID = -2265740618725191010L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;

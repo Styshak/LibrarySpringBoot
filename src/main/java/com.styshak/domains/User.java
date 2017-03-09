@@ -18,6 +18,8 @@ import java.util.Set;
 @Table
 public class User implements UserDetails, Serializable, Cloneable {
 
+	private static final long serialVersionUID = -6053559825507903283L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
