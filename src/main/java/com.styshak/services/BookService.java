@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
+import javax.persistence.Transient;
 
 @Service
 public class BookService {
@@ -20,22 +21,46 @@ public class BookService {
 	private BookRepository bookRepository;
 
 	@Transactional
-	public Page<Book> getBookPage(int pageNumber) {
-		PageRequest pageRequest =
-				new PageRequest(pageNumber - 1, PAGE_SIZE, Sort.Direction.DESC, "name");
-		return bookRepository.findAll(pageRequest);
+	public Page<Book> getAllBooks(int pageNumber) {
+		return bookRepository.findAll(new PageRequest(pageNumber - 1, PAGE_SIZE, Sort.Direction.DESC, "name"));
 	}
 
 	@Transactional
 	public Page<Book> getBooksByLetter(int pageNumber, String letter) {
-		Page page = bookRepository.findByName(letter, new PageRequest(pageNumber -1,
+		return bookRepository.findByNameStartingWithIgnoreCase(letter, new PageRequest(pageNumber -1,
 				PAGE_SIZE, new Sort(Sort.Direction.DESC, "name")));
-		return page;
+	}
+
+	@Transactional
+	public Page<Book> getBooksByAuthor(int pageNumber, String authorName) {
+		return bookRepository.findByAuthor_NameContaining(authorName, new PageRequest(pageNumber -1,
+				PAGE_SIZE, new Sort(Sort.Direction.DESC, "name")));
+	}
+
+	@Transactional
+	public Page<Book> getBooksByName(int pageNumber, String bookName) {
+		return bookRepository.findByNameContainingIgnoreCase(bookName, new PageRequest(pageNumber -1,
+				PAGE_SIZE, new Sort(Sort.Direction.DESC, "name")));
+	}
+
+	@Transactional
+	public Page<Book> getBookByGenre(int pageNumber, long genreId) {
+		return bookRepository.findByGenre_Id(genreId, new PageRequest(pageNumber -1,
+				PAGE_SIZE, new Sort(Sort.Direction.DESC, "name")));
+	}
+
+	@Transactional
+	public byte[] getBookContent(long bookId) {
+		return bookRepository.getContent(bookId);
 	}
 
 	@PostConstruct
 	void init() {
-		Page<Book> page = getBookPage(1);
-		Page<Book> page1 = getBooksByLetter(1, "М");
+		Page<Book> page = getAllBooks(1);
+		//Page<Book> page1 = getBooksByLetter(1, "м");
+		//Page<Book> page2 = getBooksByAuthor(1, "Ремарк");
+		//Page<Book> page3 = getBooksByName(1, "клык");
+		//Page<Book> page4 = getBookByGenre(1, 13);
+		//getBookContent(4);
 	}
 }
