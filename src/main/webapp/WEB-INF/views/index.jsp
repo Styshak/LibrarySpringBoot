@@ -73,7 +73,7 @@
 			<p class="lead">Online library</p>
 			<div class="list-group">
 				<c:forEach items="${genreService.findAll()}" var="g">
-					<a href="index/search?genreId=${g.id}" class="list-group-item">${g.name}</a>
+					<a href="/?genreId=${g.id}" class="list-group-item">${g.name}</a>
 				</c:forEach>
 			</div>
 		</div>

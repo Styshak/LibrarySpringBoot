@@ -1,8 +1,5 @@
 package com.styshak.controllers;
 
-import com.styshak.domains.User;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,11 +17,11 @@ public class LoginController {
         return "login";
     }
 
-    @RequestMapping(value = {"/", "/index"})
+    /*@RequestMapping(value = {"/", "/index"})
     public String welcome(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) authentication.getPrincipal();
         model.addAttribute("username", user.getUsername());
         return "index";
-    }
+    }*/
 }
