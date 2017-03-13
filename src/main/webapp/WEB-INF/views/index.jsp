@@ -73,7 +73,7 @@
 			<p class="lead">Online library</p>
 			<div class="list-group">
 				<c:forEach items="${genreService.findAll()}" var="g">
-					<a href="#" class="list-group-item">${g.name}</a>
+					<a href="index/search?genreId=${g.id}" class="list-group-item">${g.name}</a>
 				</c:forEach>
 			</div>
 		</div>
@@ -115,7 +115,7 @@
 			<div class="row row-marging">
 				<div class="col-sm-12 col-lg-12 col-md-12">
 					<a href="#" class="btn btn-success pull-right" role="button">Добавить книгу</a>
-					<h4>Найдено книг: 6</h4>
+					<h4>Найдено книг: ${books.totalElements}</h4>
 				</div>
 			</div>
 

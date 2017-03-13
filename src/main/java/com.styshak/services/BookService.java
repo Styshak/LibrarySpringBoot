@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
-import javax.persistence.Transient;
 
 @Service
 public class BookService {
@@ -44,7 +43,7 @@ public class BookService {
 	}
 
 	@Transactional
-	public Page<Book> getBookByGenre(int pageNumber, long genreId) {
+	public Page<Book> getBooksByGenre(int pageNumber, long genreId) {
 		return bookRepository.findByGenre_Id(genreId, new PageRequest(pageNumber -1,
 				PAGE_SIZE, new Sort(Sort.Direction.DESC, "name")));
 	}
