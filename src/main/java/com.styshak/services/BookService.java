@@ -53,9 +53,14 @@ public class BookService {
 		return bookRepository.getContent(bookId);
 	}
 
+	@Transactional
+	public byte[] getBookImage(long bookId) {
+		return bookRepository.getImage(bookId);
+	}
+
 	@PostConstruct
 	void init() {
-		Page<Book> page = getAllBooks(1);
+		//Page<Book> page = getAllBooks(1);
 		//Page<Book> page1 = getBooksByLetter(1, "м");
 		//Page<Book> page2 = getBooksByAuthor(1, "Ремарк");
 		//Page<Book> page3 = getBooksByName(1, "клык");

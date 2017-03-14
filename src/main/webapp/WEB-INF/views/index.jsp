@@ -121,11 +121,11 @@
 
 			<div class="row">
 
-				<c:forEach var="item" begin="1" end="6">
+				<c:forEach var="book" items="${books.content}">
 
 					<div class="col-sm-4 col-lg-4 col-md-4">
 						<div class="thumbnail">
-							<img src="http://placehold.it/320x150" alt="">
+							<img src="http://placehold.it/320x150" alt=""><!-- /img/book/${book.id} -->
 							<div class="caption">
 								<h4 class="pull-right">2008 г.</h4>
 								<h4><a href="#">First Product</a></h4>

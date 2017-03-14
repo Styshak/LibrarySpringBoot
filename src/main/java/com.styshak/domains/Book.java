@@ -1,7 +1,6 @@
 package com.styshak.domains;
 
 import lombok.Data;
-import org.springframework.context.annotation.Lazy;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -44,7 +43,7 @@ public class Book implements Serializable {
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Publisher publisher;
 
-	@Column
+	@Transient
 	private byte[] image;
 
 	@Column
