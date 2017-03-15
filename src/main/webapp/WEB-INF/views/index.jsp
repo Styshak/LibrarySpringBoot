@@ -68,7 +68,7 @@
 
 <div class="container">
 
-	<div class="row">
+	<div class="row" style="height: 100%">
 
 		<div class="col-md-3">
 			<p class="lead">Online library</p>
