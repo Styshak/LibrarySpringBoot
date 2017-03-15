@@ -121,24 +121,25 @@
 
 			<div class="row">
 
-				<c:forEach var="book" items="${books.content}">
+				<c:forEach var="book" items="${books.content}" begin="0" end="5">
 
 					<div class="col-sm-4 col-lg-4 col-md-4">
 						<div class="thumbnail">
 							<img src="http://placehold.it/320x150" alt=""><!-- /img/book/${book.id} -->
 							<div class="caption">
-								<h4 class="pull-right">2008 г.</h4>
-								<h4><a href="#">First Product</a></h4>
+								<h4 class="pull-right">${book.publishYear} г.</h4>
+								<h4><a href="#">${book.name}</a></h4>
+								<p>Автор: ${book.author.name}</p>
+								<p>Страниц: ${book.pageCount}</p>
+								<p>Издательство: ${book.publisher.name}</p>
+								<p>ISBN: ${book.isbn}</p>
 								<p>
-									<a href="#" class="btn btn-default btn-edit-book" role="button">Читать</a>
-									<a href="#" class="btn btn-default btn-edit-book pull-right" role="button">Скачать</a>
+									<a href="#" class="btn btn-default btn-edit-book btn-xs" role="button">Читать</a>
+									<a href="#" class="btn btn-default btn-edit-book pull-right btn-xs" role="button">Скачать</a>
 								</p>
 								<p>
-									<a href="#" class="btn btn-default btn-edit-book" role="button">Изменить</a>
-									<a href="#" class="btn btn-danger btn-edit-book pull-right" role="button">Удалить</a>
-								</p>
-								<p>
-									This is a short description. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+									<a href="#" class="btn btn-default btn-edit-book btn-xs" role="button">Изменить</a>
+									<a href="#" class="btn btn-danger btn-edit-book pull-right btn-xs" role="button">Удалить</a>
 								</p>
 							</div>
 							<div class="ratings">

@@ -27,23 +27,17 @@ public class MainController {
 
 	@RequestMapping(value = {"/", "/index"})
 	public ModelAndView renderBooks(@RequestParam(value = "genreId", required = false) Long genreId,
-								 @RequestParam(value = "letter", required = false) String letter,
-								 @RequestParam(value = "title", required = false) String title,
-								 @RequestParam(value = "author", required = false) String author) {
+								 	@RequestParam(value = "letter", required = false) String letter,
+								 	@RequestParam(value = "title", required = false) String title,
+								 	@RequestParam(value = "author", required = false) String author,
+									@RequestParam(value = "page", required = false) Integer page) {
 		ModelAndView modelAndView = new ModelAndView("/index");
 
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		User user = (User) authentication.getPrincipal();
 		modelAndView.addObject("username", user.getUsername());
 
-		Page<Book> books;
-
-		if(genreId != null) {
-			books = bookService.getBooksByGenre(1, genreId);
-			modelAndView.addObject("books", books);
-		} else {
-			books = bookService.getAllBooks(1);
-		}
+		Page<Book> books = getBooks(genreId, letter, title, author, page);
 
 		modelAndView.addObject("books", books);
 
@@ -60,10 +54,17 @@ public class MainController {
 		return new ResponseEntity<>(bytes, headers, HttpStatus.CREATED);
 	}
 
-	/*private Page<Book> getBooks(Long genreId, String letter, String title, String author) {
+	private Page<Book> getBooks(Long genreId, String letter, String title, String author, Integer page) {
+		int selectedPage = page == null ? 1 : page;
 		if(genreId != null) {
-			return bookService.getBooksByGenre()
+			return bookService.getBooksByGenre(selectedPage, genreId);
+		} else if(letter != null) {
+			return bookService.getBooksByLetter(selectedPage, letter);
+		} else if(title != null) {
+			return bookService.getBooksByTitle(selectedPage, title);
+		} else if(author != null) {
+			return bookService.getBooksByAuthor(selectedPage, author);
 		}
-	}*/
-
+		return bookService.getAllBooks(selectedPage);
+	}
 }

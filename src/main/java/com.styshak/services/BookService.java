@@ -14,7 +14,7 @@ import javax.annotation.PostConstruct;
 @Service
 public class BookService {
 
-	private static final int PAGE_SIZE = 4;
+	private static final int PAGE_SIZE = 6;
 
 	@Autowired
 	private BookRepository bookRepository;
@@ -37,7 +37,7 @@ public class BookService {
 	}
 
 	@Transactional
-	public Page<Book> getBooksByName(int pageNumber, String bookName) {
+	public Page<Book> getBooksByTitle(int pageNumber, String bookName) {
 		return bookRepository.findByNameContainingIgnoreCase(bookName, new PageRequest(pageNumber -1,
 				PAGE_SIZE, new Sort(Sort.Direction.DESC, "name")));
 	}
@@ -63,7 +63,7 @@ public class BookService {
 		//Page<Book> page = getAllBooks(1);
 		//Page<Book> page1 = getBooksByLetter(1, "м");
 		//Page<Book> page2 = getBooksByAuthor(1, "Ремарк");
-		//Page<Book> page3 = getBooksByName(1, "клык");
+		//Page<Book> page3 = getBooksByTitle(1, "клык");
 		//Page<Book> page4 = getBookByGenre(1, 13);
 		//getBookContent(4);
 	}
