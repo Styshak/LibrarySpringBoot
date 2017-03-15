@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <%--@elvariable id="genreService" type="com.styshak.services.GenreService"--%>
 <%--@elvariable id="letter" type="com.styshak.utils.Letter"--%>
@@ -81,32 +82,34 @@
 		<div class="col-md-9">
 
 			<div class="row row-marging">
-
-				<div class="col-sm-8 col-lg-8 col-md-8">
-					<div class="input-group">
-						<span class="input-group-addon input-group-addon-search"><i class="glyphicon glyphicon-search"></i></span>
-						<input type="text" class="form-control" placeholder="Search...">
+				<form method="POST" action="/">
+					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+					<div class="col-sm-8 col-lg-8 col-md-8">
+						<div class="input-group">
+							<span class="input-group-addon input-group-addon-search"><i class="glyphicon glyphicon-search"></i></span>
+							<input type="text" class="form-control" name="searchText" placeholder="Search...">
+						</div>
 					</div>
-				</div>
 
-				<div class="col-sm-2 col-lg-2 col-md-2">
-					<select class="form-control">
-						<option value="one">Название</option>
-						<option value="two">Автор</option>
-					</select>
-				</div>
+					<div class="col-sm-2 col-lg-2 col-md-2">
+						<select class="form-control" name="searchType">
+							<c:forEach items="${searchType}" var="s">
+								<option value=${s}><spring:message code="${s.name}"/></option>
+							</c:forEach>
+						</select>
+					</div>
 
-				<div class="col-sm-2 col-lg-2 col-md-2">
-					<button type="button" class="btn btn-primary pull-right">Search</button>
-				</div>
-
+					<div class="col-sm-2 col-lg-2 col-md-2">
+						<button type="submit" class="btn btn-primary pull-right">Search</button>
+					</div>
+				</form>
 			</div>
 
 			<div class="row">
 				<div class="col-sm-12 col-lg-12 col-md-12">
 					<div class="list-group list-group-horizontal">
 						<c:forEach var="l" items="${letter.letters}">
-							<a href="#" class="list-group-item">${l}</a>
+							<a href="/?letter=${l.toString()}" class="list-group-item">${l}</a>
 						</c:forEach>
 					</div>
 				</div>
@@ -125,7 +128,7 @@
 
 					<div class="col-sm-4 col-lg-4 col-md-4">
 						<div class="thumbnail">
-							<img src="http://placehold.it/320x150" alt=""><!-- /img/book/${book.id} -->
+							<img class="img-responsive" src="/img/book/${book.id}" alt=""><!-- /img/book/${book.id} -->
 							<div class="caption">
 								<h4 class="pull-right">${book.publishYear} г.</h4>
 								<h4><a href="#">${book.name}</a></h4>
@@ -185,7 +188,7 @@
 </div>
 
 
-<nav class="navbar navbar-default navbar-fixed-bottom" role="navigation">
+<nav class="navbar navbar-default navbar-static-bottom navbar-footer" role="navigation">
 
 	<div class="container text-center">
 

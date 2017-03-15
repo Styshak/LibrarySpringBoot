@@ -2,6 +2,7 @@ package com.styshak.controllers;
 
 import com.styshak.domains.Book;
 import com.styshak.domains.User;
+import com.styshak.enums.SearchType;
 import com.styshak.services.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -28,8 +29,8 @@ public class MainController {
 	@RequestMapping(value = {"/", "/index"})
 	public ModelAndView renderBooks(@RequestParam(value = "genreId", required = false) Long genreId,
 								 	@RequestParam(value = "letter", required = false) String letter,
-								 	@RequestParam(value = "title", required = false) String title,
-								 	@RequestParam(value = "author", required = false) String author,
+								 	@RequestParam(value = "searchType", required = false) SearchType searchType,
+									@RequestParam(value = "searchText", required = false) String searchText,
 									@RequestParam(value = "page", required = false) Integer page) {
 		ModelAndView modelAndView = new ModelAndView("/index");
 
@@ -37,9 +38,9 @@ public class MainController {
 		User user = (User) authentication.getPrincipal();
 		modelAndView.addObject("username", user.getUsername());
 
-		Page<Book> books = getBooks(genreId, letter, title, author, page);
-
+		Page<Book> books = getBooks(genreId, letter, searchType, searchText, page);
 		modelAndView.addObject("books", books);
+		modelAndView.addObject("searchType", SearchType.values());
 
 		return modelAndView;
 	}
@@ -54,16 +55,19 @@ public class MainController {
 		return new ResponseEntity<>(bytes, headers, HttpStatus.CREATED);
 	}
 
-	private Page<Book> getBooks(Long genreId, String letter, String title, String author, Integer page) {
+	private Page<Book> getBooks(Long genreId, String letter, SearchType searchType, String searchText, Integer page) {
 		int selectedPage = page == null ? 1 : page;
 		if(genreId != null) {
 			return bookService.getBooksByGenre(selectedPage, genreId);
 		} else if(letter != null) {
 			return bookService.getBooksByLetter(selectedPage, letter);
-		} else if(title != null) {
-			return bookService.getBooksByTitle(selectedPage, title);
-		} else if(author != null) {
-			return bookService.getBooksByAuthor(selectedPage, author);
+		} else if(searchText != null && searchType != null) {
+			switch (searchType) {
+				case TITLE:
+					return bookService.getBooksByTitle(selectedPage, searchText);
+				case AUTHOR:
+					return bookService.getBooksByAuthor(selectedPage, searchText);
+			}
 		}
 		return bookService.getAllBooks(selectedPage);
 	}
