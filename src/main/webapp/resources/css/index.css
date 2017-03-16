@@ -40,7 +40,7 @@ body {
 }
 
 .footer-row {
-	margin: 15px 0px 0px !important;
+	margin: 15px 0 0 !important;
 }
 
 .row-marging {
@@ -58,13 +58,13 @@ body {
 	margin-bottom: 0;
 	margin-left:-4px;
 	margin-right: 0;
-	padding: 5px 0px 5px 0px;
+	padding: 5px 0 5px 0;
 	text-align: center
 }
 .list-group-horizontal .list-group-item:first-child {
 	border-top-right-radius:0;
 	border-bottom-left-radius:4px;
-	margin-left: 0px;
+	margin-left: 0;
 }
 .list-group-horizontal .list-group-item:last-child {
 	border-top-right-radius:4px;
@@ -74,10 +74,11 @@ body {
 	width: 45%;
 }
 
-.locale {
-	margin-right: -25px;
+.locale>li>a {
+	margin-right: 5px;
+	padding: 15px 0 15px 0;
 }
 
 .navbar-footer {
-	margin-bottom: 0px;
+	margin-bottom: 0;
 }

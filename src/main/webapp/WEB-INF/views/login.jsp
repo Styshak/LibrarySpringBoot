@@ -14,38 +14,42 @@
 <div class="container container-table">
     <div class="row vertical-center-row">
         <div class="col-xs-8 col-xs-offset-2 col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 well">
+            <div class="pull-right">
+                <a href="?lang=ru"><img src="/resources/images/ru.png" width="25" height="25"></a>
+                <a href="?lang=en"><img src="/resources/images/eng.png" width="25" height="25"></a>
+            </div>
             <form method="POST">
                 <div class="form-group text-center">
                     <div class="logo">
-                        <span class="glyphicon glyphicon-flash set-logo"></span>
+                        <img src="/resources/images/logo.gif" width="200" height="200"/>
                     </div>
                 </div>
                 <c:if test="${logout}">
-                    <div class="alert alert-info" role="alert">You have been logged out successful</div>
+                    <div class="alert alert-info" role="alert"><spring:message code="logged.out.successful"/></div>
                 </c:if>
                 <c:if test="${error}">
-                    <div class="alert alert-danger" role="alert">Invalid username or password</div>
+                    <div class="alert alert-danger" role="alert"><spring:message code="invalid.username.or.password"/></div>
                 </c:if>
                 <div class="form-group">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                        <input type="text" class="form-control input-lg" placeholder="Username" name="username">
+                        <input type="text" class="form-control input-lg" placeholder=<spring:message code="username"/> name="username">
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                        <input type="password" class="form-control input-lg" placeholder="Password" name="password">
+                        <input type="password" class="form-control input-lg" placeholder=<spring:message code="password"/> name="password">
                     </div>
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-default btn-lg btn-block btn-success">Sign in</button>
+                    <button type="submit" class="btn btn-default btn-lg btn-block btn-success"><spring:message code="sign.in"/></button>
                 </div>
                 <div class="form-group last-row">
                     <label class="checklabel">
-                        <input type="checkbox"> Remember me
+                        <input type="checkbox"> <spring:message code="remember.me"/>
                     </label>
-                    <a href="/register" class="pull-right">Create an account</a>
+                    <a href="/register" class="pull-right"><spring:message code="create.account"/></a>
                 </div>
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
             </form>

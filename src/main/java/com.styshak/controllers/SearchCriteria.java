@@ -18,4 +18,6 @@ public class SearchCriteria {
 	private SearchType searchType = SearchType.TITLE;
 
 	private Genre genre;
+
+	private long genreId;
 }

@@ -50,8 +50,8 @@
 				</li>
 			</ul>
 			<div class="nav navbar-nav navbar-right">
-				<ul class="nav navbar-nav">
-					<li class="locale">
+				<ul class="nav navbar-nav locale">
+					<li>
 						<a href="?lang=ru"><img src="/resources/images/ru.png" width="25" height="25"></a>
 					</li>
 					<li>

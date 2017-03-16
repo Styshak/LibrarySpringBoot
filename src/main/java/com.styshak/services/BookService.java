@@ -64,7 +64,7 @@ public class BookService {
 		//Page<Book> page = getAllBooks(1);
 		//Page<Book> page1 = getBooksByLetter(1, "м");
 		//Page<Book> page2 = getBooksByAuthor(1, "Ремарк");
-		Page<Book> page3 = getBooksByTitle(1, "клык");
+		//Page<Book> page3 = getBooksByTitle(1, "клык");
 		//Page<Book> page4 = getBookByGenre(1, 13);
 		//getBookContent(4);
 	}
