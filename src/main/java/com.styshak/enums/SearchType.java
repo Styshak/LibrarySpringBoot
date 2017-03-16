@@ -4,8 +4,9 @@ package com.styshak.enums;
  * Created by sergey on 09.03.17.
  */
 public enum SearchType {
-	AUTHOR("searchType.author"),
-	TITLE("searchType.title");
+
+	TITLE("searchType.title"),
+	AUTHOR("searchType.author");
 
 	private String name;
 

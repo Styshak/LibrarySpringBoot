@@ -20,8 +20,8 @@
 	<div class="container">
 
 		<div class="navbar-header">
-			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-				<span class="sr-only">Toggle navigation</span>
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
+				<span class="sr-only"></span>
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
@@ -29,7 +29,7 @@
 			<a class="navbar-brand" href="#">Start Bootstrap</a>
 		</div>
 
-		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+		<div class="collapse navbar-collapse" id="navbar-collapse">
 			<ul class="nav navbar-nav">
 				<li>
 					<a href="#">About</a>
@@ -45,7 +45,7 @@
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${username}<span class="caret"></span></a>
 					<ul class="dropdown-menu">
-						<li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+						<li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> <spring:message code="logout"/></a></li>
 					</ul>
 				</li>
 			</ul>
@@ -71,7 +71,7 @@
 	<div class="row" style="height: 100%">
 
 		<div class="col-md-3">
-			<p class="lead">Online library</p>
+			<p class="lead"><spring:message code="page_title"/></p>
 			<div class="list-group">
 				<c:forEach items="${genreService.findAll()}" var="g">
 					<a href="/?genreId=${g.id}" class="list-group-item">${g.name}</a>
@@ -87,7 +87,7 @@
 					<div class="col-sm-8 col-lg-8 col-md-8">
 						<div class="input-group">
 							<span class="input-group-addon input-group-addon-search"><i class="glyphicon glyphicon-search"></i></span>
-							<input type="text" class="form-control" name="searchText" placeholder="Search...">
+							<input type="text" class="form-control" name="searchText" placeholder=<spring:message code="search.text.placeholder"/>>
 						</div>
 					</div>
 
@@ -100,7 +100,7 @@
 					</div>
 
 					<div class="col-sm-2 col-lg-2 col-md-2">
-						<button type="submit" class="btn btn-primary pull-right">Search</button>
+						<button type="submit" class="btn btn-primary pull-right"><spring:message code="btn.search"/></button>
 					</div>
 				</form>
 			</div>
@@ -117,8 +117,8 @@
 
 			<div class="row row-marging">
 				<div class="col-sm-12 col-lg-12 col-md-12">
-					<a href="#" class="btn btn-success pull-right" role="button">Добавить книгу</a>
-					<h4>Найдено книг: ${books.totalElements}</h4>
+					<a href="#" class="btn btn-success pull-right" role="button"><spring:message code="add.book"/></a>
+					<h4><spring:message code="books.count"/> ${books.totalElements}</h4>
 				</div>
 			</div>
 
@@ -132,21 +132,21 @@
 							<div class="caption">
 								<h4 class="pull-right">${book.publishYear} г.</h4>
 								<h4><a href="#">${book.name}</a></h4>
-								<p>Автор: ${book.author.name}</p>
-								<p>Страниц: ${book.pageCount}</p>
-								<p>Издательство: ${book.publisher.name}</p>
-								<p>ISBN: ${book.isbn}</p>
+								<p><strong><spring:message code="author"/></strong> ${book.author.name}</p>
+								<p><strong><spring:message code="pages"/></strong> ${book.pageCount}</p>
+								<p><strong><spring:message code="publisher"/></strong> ${book.publisher.name}</p>
+								<p><strong><spring:message code="isbn"/></strong> ${book.isbn}</p>
 								<p>
-									<a href="#" class="btn btn-default btn-edit-book btn-xs" role="button">Читать</a>
-									<a href="#" class="btn btn-default btn-edit-book pull-right btn-xs" role="button">Скачать</a>
+									<a href="#" class="btn btn-default btn-edit-book btn-xs" role="button"><spring:message code="read_btn"/></a>
+									<a href="#" class="btn btn-default btn-edit-book pull-right btn-xs" role="button"><spring:message code="download_btn"/></a>
 								</p>
 								<p>
-									<a href="#" class="btn btn-default btn-edit-book btn-xs" role="button">Изменить</a>
-									<a href="#" class="btn btn-danger btn-edit-book pull-right btn-xs" role="button">Удалить</a>
+									<a href="#" class="btn btn-default btn-edit-book btn-xs" role="button"><spring:message code="edit_btn"/></a>
+									<a href="#" class="btn btn-danger btn-edit-book pull-right btn-xs" role="button"><spring:message code="delete_btn"/></a>
 								</p>
 							</div>
 							<div class="ratings">
-								<p class="pull-right">15 reviews</p>
+								<p class="pull-right">15 <spring:message code="reviews"/></p>
 								<p>
 									<span class="glyphicon glyphicon-star"></span>
 									<span class="glyphicon glyphicon-star"></span>
@@ -165,7 +165,7 @@
 			<div class="row">
 				<div class="col-xs-10 col-xs-offset-1">
 					<ul class="pagination">
-						<li class="disabled"><a href="#">&laquo;</a></li>
+						<!-- <li class="disabled"><a href="#">&laquo;</a></li>
 						<li class="active"><a href="#">1</a></li>
 						<li><a href="#">2</a></li>
 						<li><a href="#">3</a></li>
@@ -176,7 +176,44 @@
 						<li><a href="#">8</a></li>
 						<li><a href="#">...</a></li>
 						<li><a href="#">99</a></li>
-						<li><a href="#">&raquo;</a></li>
+						<li><a href="#">&raquo;</a></li> -->
+
+						<c:url var="firstUrl" value="/pages/1" />
+						<c:url var="lastUrl" value="/pages/${deploymentLog.totalPages}" />
+						<c:url var="prevUrl" value="/pages/${currentIndex - 1}" />
+						<c:url var="nextUrl" value="/pages/${currentIndex + 1}" />
+
+						<c:choose>
+							<c:when test="${currentIndex == 1}">
+								<li class="disabled"><a href="javascript: void(0)">&lt;&lt;</a></li>
+								<li class="disabled"><a href="javascript: void(0)">&lt;</a></li>
+							</c:when>
+							<c:otherwise>
+								<li><a href="${firstUrl}">&lt;&lt;</a></li>
+								<li><a href="${prevUrl}">&lt;</a></li>
+							</c:otherwise>
+						</c:choose>
+						<c:forEach var="i" begin="${beginIndex}" end="${endIndex}">
+							<c:url var="pageUrl" value="/pages/${i}" />
+							<c:choose>
+								<c:when test="${i == currentIndex}">
+									<li class="active"><a href="${pageUrl}"><c:out value="${i}" /></a></li>
+								</c:when>
+								<c:otherwise>
+									<li><a href="${pageUrl}"><c:out value="${i}" /></a></li>
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
+						<c:choose>
+							<c:when test="${currentIndex == books.totalPages}">
+								<li class="disabled"><a href="javascript: void(0)">&gt;</a></li>
+								<li class="disabled"><a href="javascript: void(0)">&gt;&gt;</a></li>
+							</c:when>
+							<c:otherwise>
+								<li><a href="${nextUrl}">&gt;</a></li>
+								<li><a href="${lastUrl}">&gt;&gt;</a></li>
+							</c:otherwise>
+						</c:choose>
 					</ul>
 				</div>
 			</div>

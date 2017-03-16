@@ -47,6 +47,14 @@ public class MainController {
 		modelAndView.addObject("username", getUsername());
 
 		Page<Book> books = getBooks(genreId, letter, searchType, searchText, page);
+
+		int current = books.getNumber() + 1;
+		int begin = Math.max(1, current - 5);
+		int end = Math.min(begin + 10, books.getTotalPages());
+		model.addAttribute("beginIndex", begin);
+		model.addAttribute("endIndex", end);
+		model.addAttribute("currentIndex", current);
+
 		modelAndView.addObject("books", books);
 		modelAndView.addObject("searchType", SearchType.values());
 

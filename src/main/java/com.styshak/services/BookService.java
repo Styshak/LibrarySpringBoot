@@ -9,13 +9,11 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.PostConstruct;
-
 @Service
 public class BookService {
 
 	private static final int PAGE_SIZE = 6;
-	private final Sort sorting = new Sort(Sort.Direction.DESC, "name");
+	private static final Sort SORTING = new Sort(Sort.Direction.DESC, "name");
 
 	@Autowired
 	private BookRepository bookRepository;
@@ -56,16 +54,6 @@ public class BookService {
 	}
 
 	private PageRequest getPageRequest(int pageNumber) {
-		return new PageRequest(pageNumber -1, PAGE_SIZE, sorting);
-	}
-
-	@PostConstruct
-	void init() {
-		//Page<Book> page = getAllBooks(1);
-		//Page<Book> page1 = getBooksByLetter(1, "м");
-		//Page<Book> page2 = getBooksByAuthor(1, "Ремарк");
-		//Page<Book> page3 = getBooksByTitle(1, "клык");
-		//Page<Book> page4 = getBookByGenre(1, 13);
-		//getBookContent(4);
+		return new PageRequest(pageNumber -1, PAGE_SIZE, SORTING);
 	}
 }
