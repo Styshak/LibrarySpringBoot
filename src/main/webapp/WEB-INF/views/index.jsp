@@ -74,7 +74,7 @@
 			<p class="lead"><spring:message code="page_title"/></p>
 			<div class="list-group">
 				<c:forEach items="${genreService.findAll()}" var="g">
-					<a href="/?genreId=${g.id}" class="list-group-item">${g.name}</a>
+					<a href="/genre/${g.id}" class="list-group-item" onclick="">${g.name}</a>
 				</c:forEach>
 			</div>
 		</div>
@@ -82,7 +82,7 @@
 		<div class="col-md-9">
 
 			<div class="row row-marging">
-				<form method="POST" action="/">
+				<form method="GET" action="/">
 					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 					<div class="col-sm-8 col-lg-8 col-md-8">
 						<div class="input-group">
@@ -109,7 +109,7 @@
 				<div class="col-sm-12 col-lg-12 col-md-12">
 					<div class="list-group list-group-horizontal">
 						<c:forEach var="l" items="${letter.letters}">
-							<a href="/?letter=${l.toString()}" class="list-group-item">${l}</a>
+							<a href="/letter/${l}" class="list-group-item">${l}</a>
 						</c:forEach>
 					</div>
 				</div>
@@ -188,16 +188,13 @@
 							</c:otherwise>
 						</c:choose>
 						<c:forEach var="i" begin="${beginIndex}" end="${endIndex}">
-							<c:set var="pageUrl" value="/?page=${i}"/>
-							<c:if test="${not empty pageContext.request.queryString}">
-								<c:set var="pageUrl" value="${'/?' += pageContext.request.queryString += '&page='}${i}" />
-							</c:if>
+							<c:set var="url" value="${pageUrl += '/page/'}${i}"/>
 							<c:choose>
 								<c:when test="${i == currentIndex}">
-									<li class="active"><a href="${pageUrl}"><c:out value="${i}" /></a></li>
+									<li class="active"><a href="${url}"><c:out value="${i}" /></a></li>
 								</c:when>
 								<c:otherwise>
-									<li><a href="${pageUrl}"><c:out value="${i}" /></a></li>
+									<li><a href="${url}"><c:out value="${i}" /></a></li>
 								</c:otherwise>
 							</c:choose>
 						</c:forEach>

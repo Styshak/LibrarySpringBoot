@@ -13,55 +13,47 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-@RequestMapping
+@RequestMapping("/")
 public class MainController {
 
 	@Autowired
 	private BookService bookService;
 
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public ModelAndView renderBooksGet(ModelMap model,
-									@RequestParam(value = "genreId", required = false) Long genreId,
-								 	@RequestParam(value = "letter", required = false) String letter,
-								 	@RequestParam(value = "searchType", required = false) SearchType searchType,
-									@RequestParam(value = "searchText", required = false) String searchText,
-									@RequestParam(value = "page", required = false) Integer page) {
-		ModelAndView modelAndView = new ModelAndView("/index");
-		if(model.size() != 0) {
-			genreId = (Long) model.get("genreId");
-			letter = (String) model.get("letter");
-			searchType = (SearchType) model.get("searchType");
-			searchText = (String) model.get("searchText");
-			page = (Integer) model.get("page");
-		}
-
-		modelAndView.addObject("username", getUsername());
-
-		Page<Book> books = getBooks(genreId, letter, searchType, searchText, page);
-
-		int current = books.getNumber() + 1;
-		int begin = Math.max(1, current - 5);
-		int end = Math.min(begin + 10, books.getTotalPages());
-		model.addAttribute("beginIndex", begin);
-		model.addAttribute("endIndex", end);
-		model.addAttribute("currentIndex", current);
-
+	@RequestMapping(value = {"/genre/{id}", "/genre/{id}/page/{pageNumber}"}, method = RequestMethod.GET)
+	public ModelAndView getBooksByGenre(@PathVariable(value = "id") Long id,
+										@PathVariable(value = "pageNumber", required = false) Integer pageNumber) {
+		Page<Book> books = bookService.getBooksByGenre(pageNumber == null ? 1 : pageNumber, id);
+		ModelAndView modelAndView = getModelAndView("/index", books);
+		modelAndView.addObject("pageUrl", "/genre/" + id);
 		modelAndView.addObject("books", books);
-		modelAndView.addObject("searchType", SearchType.values());
-
 		return modelAndView;
 	}
 
-	@RequestMapping(value = {"/", "/index"}, method = RequestMethod.POST)
+	@RequestMapping(value = {"/letter/{l}", "/letter/{l}/page/{pageNumber}"}, method = RequestMethod.GET)
+	public ModelAndView getBooksByLetter(@PathVariable(value = "l") String letter,
+										@PathVariable(value = "pageNumber", required = false) Integer pageNumber) {
+		Page<Book> books = bookService.getBooksByLetter(pageNumber == null ? 1 : pageNumber, letter);
+		ModelAndView modelAndView = getModelAndView("/index", books);
+		modelAndView.addObject("pageUrl", "/letter/" + letter);
+		modelAndView.addObject("books", books);
+		return modelAndView;
+	}
+
+	@RequestMapping(value = {"/", "/page/{pageNumber}"}, method = RequestMethod.GET)
+	public ModelAndView renderBooksGet(@PathVariable(value = "pageNumber", required = false) Integer pageNumber) {
+		Page<Book> books = bookService.getAllBooks(pageNumber == null ? 1 : pageNumber);
+		ModelAndView modelAndView = getModelAndView("/index", books);
+		modelAndView.addObject("books", books);
+		return modelAndView;
+	}
+
+	/*@RequestMapping(value = {"/", "/index"}, method = RequestMethod.POST)
 	public String renderBooksPost(RedirectAttributes redirectAttributes,
 										@RequestParam(value = "genreId", required = false) Long genreId,
 									    @RequestParam(value = "letter", required = false) String letter,
@@ -76,7 +68,7 @@ public class MainController {
 		redirectAttributes.addFlashAttribute("page", page);
 
 		return "redirect:/";
-	}
+	}*/
 
 	@RequestMapping (value="/img/book/{id}", method = RequestMethod.GET)
 	public ResponseEntity<byte[]> getBookImage(@PathVariable final long id) {
@@ -88,7 +80,7 @@ public class MainController {
 		return new ResponseEntity<>(bytes, headers, HttpStatus.CREATED);
 	}
 
-	private Page<Book> getBooks(Long genreId, String letter, SearchType searchType, String searchText, Integer page) {
+	/*private Page<Book> getBooks(Long genreId, String letter, SearchType searchType, String searchText, Integer page) {
 		int selectedPage = page == null ? 1 : page;
 		if(genreId != null) {
 			return bookService.getBooksByGenre(selectedPage, genreId);
@@ -103,11 +95,26 @@ public class MainController {
 			}
 		}
 		return bookService.getAllBooks(selectedPage);
-	}
+	}*/
 
 	private String getUsername() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		User user = (User) authentication.getPrincipal();
 		return user.getUsername();
+	}
+
+	private ModelAndView getModelAndView(String viewName, Page<Book> books) {
+		ModelAndView modelAndView = new ModelAndView(viewName);
+		modelAndView.addObject("username", getUsername());
+		int current = books.getNumber() + 1;
+		int begin = Math.max(1, current - 5);
+		int end = Math.min(begin + 10, books.getTotalPages());
+		modelAndView.addObject("beginIndex", begin);
+		modelAndView.addObject("endIndex", end);
+		modelAndView.addObject("currentIndex", current);
+
+		modelAndView.addObject("books", books);
+		modelAndView.addObject("searchType", SearchType.values());
+		return modelAndView;
 	}
 }
