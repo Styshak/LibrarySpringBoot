@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class BookService {
 
-	private static final int PAGE_SIZE = 6;
+	private static final int PAGE_SIZE = 3;
 	private static final Sort SORTING = new Sort(Sort.Direction.DESC, "name");
 
 	@Autowired

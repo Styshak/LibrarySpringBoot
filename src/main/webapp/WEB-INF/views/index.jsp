@@ -165,20 +165,14 @@
 			<div class="row">
 				<div class="col-xs-10 col-xs-offset-1">
 					<ul class="pagination">
-						<!-- <li class="disabled"><a href="#">&laquo;</a></li>
-						<li class="active"><a href="#">1</a></li>
-						<li><a href="#">2</a></li>
-						<li><a href="#">3</a></li>
-						<li><a href="#">4</a></li>
-						<li><a href="#">5</a></li>
-						<li><a href="#">6</a></li>
-						<li><a href="#">7</a></li>
-						<li><a href="#">8</a></li>
-						<li><a href="#">...</a></li>
-						<li><a href="#">99</a></li>
-						<li><a href="#">&raquo;</a></li> -->
 
-						<c:url var="firstUrl" value="/pages/1" />
+						<c:set var="firstUrl" value="${pageContext.request.queryString}" />
+						<c:if test="${not empty pageContext.request.queryString}">
+							<c:set var="firstUrl" value="${'/?' += pageContext.request.queryString += '&page=1'}" />
+						</c:if>
+
+
+						<c:url var="firstUrl" value="${firstUrl}" />
 						<c:url var="lastUrl" value="/pages/${deploymentLog.totalPages}" />
 						<c:url var="prevUrl" value="/pages/${currentIndex - 1}" />
 						<c:url var="nextUrl" value="/pages/${currentIndex + 1}" />
@@ -194,7 +188,10 @@
 							</c:otherwise>
 						</c:choose>
 						<c:forEach var="i" begin="${beginIndex}" end="${endIndex}">
-							<c:url var="pageUrl" value="/pages/${i}" />
+							<c:set var="pageUrl" value="/?page=${i}"/>
+							<c:if test="${not empty pageContext.request.queryString}">
+								<c:set var="pageUrl" value="${'/?' += pageContext.request.queryString += '&page='}${i}" />
+							</c:if>
 							<c:choose>
 								<c:when test="${i == currentIndex}">
 									<li class="active"><a href="${pageUrl}"><c:out value="${i}" /></a></li>
