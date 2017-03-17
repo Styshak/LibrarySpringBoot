@@ -53,6 +53,11 @@ public class BookService {
 		return bookRepository.getImage(bookId);
 	}
 
+	@Transactional
+	public String getBookNameById(long bookId) {
+		return bookRepository.getBookNameById(bookId);
+	}
+
 	private PageRequest getPageRequest(int pageNumber) {
 		return new PageRequest(pageNumber -1, PAGE_SIZE, SORTING);
 	}

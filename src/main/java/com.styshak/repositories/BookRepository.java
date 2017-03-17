@@ -26,4 +26,7 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 
 	@Query(value = "SELECT image FROM book WHERE id = :bookId", nativeQuery = true)
 	byte[] getImage(@Param("bookId") long bookId);
+
+	@Query(value = "SELECT name FROM book WHERE id = :bookId", nativeQuery = true)
+	String getBookNameById(@Param("bookId") long bookId);
 }

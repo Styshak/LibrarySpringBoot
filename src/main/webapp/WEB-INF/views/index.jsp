@@ -80,29 +80,33 @@
 		</div>
 
 		<div class="col-md-9">
-
 			<div class="row row-marging">
-				<form method="GET" action="/">
-					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-					<div class="col-sm-8 col-lg-8 col-md-8">
-						<div class="input-group">
-							<span class="input-group-addon input-group-addon-search"><i class="glyphicon glyphicon-search"></i></span>
-							<input type="text" class="form-control" name="searchText" placeholder=<spring:message code="search.text.placeholder"/>>
-						</div>
+				<script type="text/javascript">
+					function onSearchForm() {
+						var searchType = document.getElementById("searchType").value;
+						var searchText = document.getElementById("searchText").value;
+						return "/search/type/" + searchType + "/text/" + searchText;
+					}
+				</script>
+				<div class="col-sm-8 col-lg-8 col-md-8">
+					<div class="input-group">
+						<span class="input-group-addon input-group-addon-search"><i class="glyphicon glyphicon-search"></i></span>
+						<input type="text" class="form-control" name="searchText" id="searchText" placeholder=<spring:message code="search.text.placeholder"/>>
 					</div>
+				</div>
 
-					<div class="col-sm-2 col-lg-2 col-md-2">
-						<select class="form-control" name="searchType">
-							<c:forEach items="${searchType}" var="s">
-								<option value=${s}><spring:message code="${s.name}"/></option>
-							</c:forEach>
-						</select>
-					</div>
+				<div class="col-sm-2 col-lg-2 col-md-2">
+					<select class="form-control" name="searchType" id="searchType">
+						<c:forEach items="${searchType}" var="s">
+							<option value=${s}><spring:message code="${s.name}"/></option>
+						</c:forEach>
+					</select>
+				</div>
 
-					<div class="col-sm-2 col-lg-2 col-md-2">
-						<button type="submit" class="btn btn-primary pull-right"><spring:message code="btn.search"/></button>
-					</div>
-				</form>
+				<div class="col-sm-2 col-lg-2 col-md-2">
+					<button type="button" class="btn btn-primary pull-right" onclick="location.href=onSearchForm();"><spring:message code="btn.search"/></button>
+				</div>
+
 			</div>
 
 			<div class="row">
@@ -137,8 +141,8 @@
 								<p><strong><spring:message code="publisher"/></strong> ${book.publisher.name}</p>
 								<p><strong><spring:message code="isbn"/></strong> ${book.isbn}</p>
 								<p>
-									<a href="#" class="btn btn-default btn-edit-book btn-xs" role="button"><spring:message code="read_btn"/></a>
-									<a href="#" class="btn btn-default btn-edit-book pull-right btn-xs" role="button"><spring:message code="download_btn"/></a>
+									<a href="/read/book/${book.id}" class="btn btn-default btn-edit-book btn-xs" role="button"><spring:message code="read_btn"/></a>
+									<a href="/save/book/${book.id}" class="btn btn-default btn-edit-book pull-right btn-xs" role="button"><spring:message code="download_btn"/></a>
 								</p>
 								<p>
 									<a href="#" class="btn btn-default btn-edit-book btn-xs" role="button"><spring:message code="edit_btn"/></a>
@@ -166,46 +170,48 @@
 				<div class="col-xs-10 col-xs-offset-1">
 					<ul class="pagination">
 
-						<c:set var="firstUrl" value="${pageContext.request.queryString}" />
-						<c:if test="${not empty pageContext.request.queryString}">
-							<c:set var="firstUrl" value="${'/?' += pageContext.request.queryString += '&page=1'}" />
-						</c:if>
-
-
-						<c:url var="firstUrl" value="${firstUrl}" />
-						<c:url var="lastUrl" value="/pages/${deploymentLog.totalPages}" />
-						<c:url var="prevUrl" value="/pages/${currentIndex - 1}" />
-						<c:url var="nextUrl" value="/pages/${currentIndex + 1}" />
-
+						<c:url var="firstUrl" value="${pageUrl += '/page/1'}" />
+						<c:url var="lastUrl" value="${pageUrl += '/page/'}${books.totalPages}" />
+						<c:url var="prevUrl" value="${pageUrl += '/page/'}${currentIndex - 1}" />
+						<c:url var="nextUrl" value="${pageUrl += '/page/'}${currentIndex + 1}" />
 						<c:choose>
-							<c:when test="${currentIndex == 1}">
-								<li class="disabled"><a href="javascript: void(0)">&lt;&lt;</a></li>
-								<li class="disabled"><a href="javascript: void(0)">&lt;</a></li>
+							<c:when test="${books.totalPages eq 0 or not empty error}">
+								<c:if test="${not empty error}">
+									<div class="alert alert-danger" role="alert"><spring:message code="${error}"/></div>
+								</c:if>
 							</c:when>
 							<c:otherwise>
-								<li><a href="${firstUrl}">&lt;&lt;</a></li>
-								<li><a href="${prevUrl}">&lt;</a></li>
-							</c:otherwise>
-						</c:choose>
-						<c:forEach var="i" begin="${beginIndex}" end="${endIndex}">
-							<c:set var="url" value="${pageUrl += '/page/'}${i}"/>
-							<c:choose>
-								<c:when test="${i == currentIndex}">
-									<li class="active"><a href="${url}"><c:out value="${i}" /></a></li>
-								</c:when>
-								<c:otherwise>
-									<li><a href="${url}"><c:out value="${i}" /></a></li>
-								</c:otherwise>
-							</c:choose>
-						</c:forEach>
-						<c:choose>
-							<c:when test="${currentIndex == books.totalPages}">
-								<li class="disabled"><a href="javascript: void(0)">&gt;</a></li>
-								<li class="disabled"><a href="javascript: void(0)">&gt;&gt;</a></li>
-							</c:when>
-							<c:otherwise>
-								<li><a href="${nextUrl}">&gt;</a></li>
-								<li><a href="${lastUrl}">&gt;&gt;</a></li>
+								<c:choose>
+									<c:when test="${currentIndex == 1}">
+										<li class="disabled"><a href="javascript: void(0)">&lt;&lt;</a></li>
+										<li class="disabled"><a href="javascript: void(0)">&lt;</a></li>
+									</c:when>
+									<c:otherwise>
+										<li><a href="${firstUrl}">&lt;&lt;</a></li>
+										<li><a href="${prevUrl}">&lt;</a></li>
+									</c:otherwise>
+								</c:choose>
+								<c:forEach var="i" begin="${beginIndex}" end="${endIndex}">
+									<c:set var="url" value="${pageUrl += '/page/'}${i}"/>
+									<c:choose>
+										<c:when test="${i == currentIndex}">
+											<li class="active"><a href="${url}"><c:out value="${i}" /></a></li>
+										</c:when>
+										<c:otherwise>
+											<li><a href="${url}"><c:out value="${i}" /></a></li>
+										</c:otherwise>
+									</c:choose>
+								</c:forEach>
+								<c:choose>
+									<c:when test="${currentIndex == books.totalPages}">
+										<li class="disabled"><a href="javascript: void(0)">&gt;</a></li>
+										<li class="disabled"><a href="javascript: void(0)">&gt;&gt;</a></li>
+									</c:when>
+									<c:otherwise>
+										<li><a href="${nextUrl}">&gt;</a></li>
+										<li><a href="${lastUrl}">&gt;&gt;</a></li>
+									</c:otherwise>
+								</c:choose>
 							</c:otherwise>
 						</c:choose>
 					</ul>
