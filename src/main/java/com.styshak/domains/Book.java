@@ -23,7 +23,7 @@ public class Book implements Serializable {
 	private byte[] content;
 
 	@Column(name = "page_count")
-	private int pageCount;
+	private Integer pageCount;
 
 	@Column
 	private String isbn;
@@ -37,7 +37,7 @@ public class Book implements Serializable {
 	private Author author;
 
 	@Column(name = "publish_year")
-	private int publishYear;
+	private Integer publishYear;
 
 	@JoinColumn(name = "publisher_id")
 	@ManyToOne(cascade = CascadeType.ALL)
