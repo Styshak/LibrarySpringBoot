@@ -1,6 +1,9 @@
 body {
 	padding-top: 70px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
 }
+html {
+	overflow-y: scroll;
+}
 
 .slide-image {
 	width: 100%;
@@ -81,4 +84,8 @@ body {
 
 .navbar-footer {
 	margin-bottom: 0;
+}
+
+.error {
+	color: red;
 }

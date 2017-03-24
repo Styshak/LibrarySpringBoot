@@ -13,6 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -133,9 +135,18 @@ public class MainController {
 
 	@RequestMapping(value = "/addBook", method = RequestMethod.POST)
 	public String addBook(@RequestParam(value = "currentRequest") String currentRequest,
-						  @ModelAttribute("book") Book book) {
+						  @ModelAttribute("book") Book book,
+						  BindingResult bindingResult) {
 		return "redirect:" + currentRequest;
 	}
+
+	@RequestMapping(value = "/getBookById", method = RequestMethod.POST)
+	public @ResponseBody String addBook(@RequestParam Long id, Model model) {
+		Book book = bookService.findOne(id);
+		model.addAttribute("book", book);
+		return "{\"msg\":\"success\"}";
+	}
+
 
 	private String getUsername() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

@@ -127,108 +127,7 @@
 				</div>
 			</div>
 
-			<!-- Modal -->
-			<form:form method="post" modelAttribute="book" action="/addBook?currentRequest=${requestScope['javax.servlet.forward.request_uri']}">
-				<div class="container">
-					<div class="container">
-						<div class="modal fade" id="myModal" role="dialog">
-							<div class="modal-dialog modal-md">
-								<div class="modal-content">
-									<div class="modal-header">
-										<button type="button" class="close" data-dismiss="modal">&times;</button>
-										<h4 class="modal-title">Modal Header</h4>
-									</div>
-									<div class="modal-body">
-										<spring:bind path="name">
-											<div class="form-group">
-												<div class="input-group" style="width: 100%">
-													<form:input type="text" path="name" class="form-control" placeholder="Название"/>
-												</div>
-											</div>
-										</spring:bind>
-										<spring:bind path="pageCount">
-											<div class="form-group">
-												<div class="input-group" style="width: 100%">
-													<form:input type="text" path="pageCount" class="form-control" placeholder="Кол-во страниц"/>
-												</div>
-											</div>
-										</spring:bind>
-										<spring:bind path="isbn">
-											<div class="form-group">
-												<div class="input-group" style="width: 100%">
-													<form:input type="text" path="isbn" class="form-control" placeholder="ISBN"/>
-												</div>
-											</div>
-										</spring:bind>
-										<spring:bind path="genre">
-											<div class="form-group">
-												<div class="input-group" style="width: 100%">
-													<form:select path="genre" class="form-control" >
-														<form:option value="NONE" label="Жанр" />
-														<form:options items="${genreService.findAll()}" itemLabel="name" />
-													</form:select>
-												</div>
-											</div>
-										</spring:bind>
-										<spring:bind path="author">
-											<div class="form-group">
-												<div class="input-group" style="width: 100%">
-													<form:select path="author" class="form-control" >
-														<form:option value="NONE" label="Автор" />
-														<form:options items="${authorService.findAll()}" itemLabel="name" />
-													</form:select>
-												</div>
-											</div>
-										</spring:bind>
-										<spring:bind path="publisher">
-											<div class="form-group">
-												<div class="input-group" style="width: 100%">
-													<form:select path="publisher" class="form-control" >
-														<form:option value="NONE" label="Издательство" />
-														<form:options items="${publisherService.findAll()}" itemLabel="name" />
-													</form:select>
-												</div>
-											</div>
-										</spring:bind>
-										<spring:bind path="publishYear">
-											<div class="form-group">
-												<div class="input-group" style="width: 100%">
-													<form:input type="text" path="publishYear" class="form-control" placeholder="Год выпуска"/>
-												</div>
-											</div>
-										</spring:bind>
-										<spring:bind path="description">
-											<div class="form-group">
-												<div class="input-group" style="width: 100%">
-													<form:textarea type="text" path="description" class="form-control" placeholder="Описание" rows="5"/>
-												</div>
-											</div>
-										</spring:bind>
-
-										<div class="form-group">
-											<div class="input-group" style="width: 100%">
-												<input type="file" class="form-control" name="image" />
-											</div>
-										</div>
-
-										<div class="form-group">
-											<div class="input-group" style="width: 100%">
-												<input type="file" class="form-control" name="content" />
-											</div>
-										</div>
-
-									</div>
-									<div class="modal-footer">
-										<button type="submit" class="btn btn-primary" role="button">Add</button>
-										<button type="button" class="btn btn-default" role="button" data-dismiss="modal">Close</button>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</form:form>
-			<!-- Modal -->
+			<jsp:include page="modifyBook.jsp"/>
 
 			<div class="row">
 
@@ -249,7 +148,7 @@
 									<a href="/save/book/${book.id}" class="btn btn-default btn-edit-book pull-right btn-xs" role="button"><spring:message code="download_btn"/></a>
 								</p>
 								<p>
-									<a href="#" class="btn btn-default btn-edit-book btn-xs" role="button"><spring:message code="edit_btn"/></a>
+									<a href="#" onclick="editBook('${book.id}')" class="btn btn-default btn-edit-book btn-xs" role="button"><spring:message code="edit_btn" /></a>
 									<a href="#" class="btn btn-danger btn-edit-book pull-right btn-xs" role="button"><spring:message code="delete_btn"/></a>
 								</p>
 							</div>

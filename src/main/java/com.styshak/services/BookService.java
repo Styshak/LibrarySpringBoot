@@ -58,6 +58,11 @@ public class BookService {
 		return bookRepository.getBookNameById(bookId);
 	}
 
+	@Transactional
+	public Book findOne(Long id) {
+		return bookRepository.findOne(id);
+	}
+
 	private PageRequest getPageRequest(int pageNumber) {
 		return new PageRequest(pageNumber -1, PAGE_SIZE, SORTING);
 	}
