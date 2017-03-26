@@ -13,6 +13,7 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="/resources/js/index.js"></script>
 	<link rel="stylesheet" type="text/css" href="/resources/css/index.css">
 </head>
 <body>
@@ -112,9 +113,9 @@
 
 			<div class="row">
 				<div class="col-sm-12 col-lg-12 col-md-12">
-					<div class="list-group list-group-horizontal">
+					<div class="btn-group btn-group-justified btn-group-own" role="group">
 						<c:forEach var="l" items="${letter.letters}">
-							<a href="/letter/${l}" class="list-group-item">${l}</a>
+							<a href="/letter/${l}" class="btn btn-default btn-group-own-item">${l}</a>
 						</c:forEach>
 					</div>
 				</div>
@@ -135,7 +136,7 @@
 
 					<div class="col-sm-4 col-lg-4 col-md-4">
 						<div class="thumbnail">
-							<img class="img-responsive" src="/img/book/${book.id}" alt=""><!-- /img/book/${book.id} -->
+							<img class="img-responsive" src="/img/book/${book.id}" alt="">
 							<div class="caption">
 								<h4 class="pull-right">${book.publishYear} г.</h4>
 								<h4><a href="#">${book.name}</a></h4>
@@ -148,7 +149,7 @@
 									<a href="/save/book/${book.id}" class="btn btn-default btn-edit-book pull-right btn-xs" role="button"><spring:message code="download_btn"/></a>
 								</p>
 								<p>
-									<a href="#" onclick="editBook('${book.id}')" class="btn btn-default btn-edit-book btn-xs" role="button"><spring:message code="edit_btn" /></a>
+									<a href="javascript: void(0)" onclick="editBook('${book.id}')" class="btn btn-default btn-edit-book btn-xs" role="button"><spring:message code="edit_btn" /></a>
 									<a href="#" class="btn btn-danger btn-edit-book pull-right btn-xs" role="button"><spring:message code="delete_btn"/></a>
 								</p>
 							</div>
@@ -186,12 +187,12 @@
 							<c:otherwise>
 								<c:choose>
 									<c:when test="${currentIndex == 1}">
-										<li class="disabled"><a href="javascript: void(0)">&lt;&lt;</a></li>
-										<li class="disabled"><a href="javascript: void(0)">&lt;</a></li>
+										<li class="disabled"><a href="javascript: void(0)">&laquo;</a></li>
+										<li class="disabled"><a href="javascript: void(0)">&lsaquo;</a></li>
 									</c:when>
 									<c:otherwise>
-										<li><a href="${firstUrl}">&lt;&lt;</a></li>
-										<li><a href="${prevUrl}">&lt;</a></li>
+										<li><a href="${firstUrl}">&laquo;</a></li>
+										<li><a href="${prevUrl}">&lsaquo;</a></li>
 									</c:otherwise>
 								</c:choose>
 								<c:forEach var="i" begin="${beginIndex}" end="${endIndex}">
@@ -207,12 +208,12 @@
 								</c:forEach>
 								<c:choose>
 									<c:when test="${currentIndex == books.totalPages}">
-										<li class="disabled"><a href="javascript: void(0)">&gt;</a></li>
-										<li class="disabled"><a href="javascript: void(0)">&gt;&gt;</a></li>
+										<li class="disabled"><a href="javascript: void(0)">&rsaquo;</a></li>
+										<li class="disabled"><a href="javascript: void(0)">&raquo;</a></li>
 									</c:when>
 									<c:otherwise>
-										<li><a href="${nextUrl}">&gt;</a></li>
-										<li><a href="${lastUrl}">&gt;&gt;</a></li>
+										<li><a href="${nextUrl}">&rsaquo;</a></li>
+										<li><a href="${lastUrl}">&raquo;</a></li>
 									</c:otherwise>
 								</c:choose>
 							</c:otherwise>
@@ -227,8 +228,7 @@
 
 </div>
 
-
-<nav class="navbar navbar-default navbar-static-bottom navbar-footer" role="navigation">
+<nav class="navbar navbar-default navbar-fixed-bottom" role="navigation">
 
 	<div class="container text-center">
 
@@ -240,10 +240,5 @@
 
 	</div>
 </nav>
-<script type="text/javascript">
-	$( document ).ready(function() {
-		$('.list-group-horizontal .list-group-item').css('width','calc(100% / ${fn:length(letter.letters)})');
-	});
-</script>
 </body>
 </html>

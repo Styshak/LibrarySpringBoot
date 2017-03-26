@@ -7,7 +7,7 @@ import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-@EnableJpaRepositories(basePackages = "com.styshak.repositories")
+@EnableJpaRepositories
 public class Application extends SpringBootServletInitializer {
 
     @Override

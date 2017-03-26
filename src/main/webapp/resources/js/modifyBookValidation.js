@@ -1,25 +1,6 @@
 $.validator.addMethod("notEqual", function(value, element, param) {
-	return this.optional(element) || value != param;
+	return this.optional(element) || value !== param;
 }, "Please, select a value");
-
-function editBook(bookId) {
-	var data = {
-		id: bookId
-	};
-
-
-	$.ajax({
-		type : "POST",
-		url : "getBookById",
-		data: data,
-		dataType : 'json',
-		timeout : 100000,
-		success : function(data) {
-			$('#myModal').modal('show');
-		}
-	});
-
-}
 
 $(function() {
 	$("#modalForm").validate({

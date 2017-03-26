@@ -8,7 +8,7 @@
 	<script src="https://cdn.jsdelivr.net/jquery.validation/1.15.1/jquery.validate.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/jquery.validation/1.15.1/additional-methods.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-filestyle/1.2.1/bootstrap-filestyle.min.js"></script>
-	<script src="/resources/js/formValidation.js"></script>
+	<script src="/resources/js/modifyBookValidation.js"></script>
 </head>
 <body>
 <!-- Modal -->

@@ -140,11 +140,12 @@ public class MainController {
 		return "redirect:" + currentRequest;
 	}
 
-	@RequestMapping(value = "/getBookById", method = RequestMethod.POST)
-	public @ResponseBody String addBook(@RequestParam Long id, Model model) {
+	@RequestMapping(value = "/getBookById", method = RequestMethod.GET)
+	public @ResponseBody Book addBook(@RequestParam Long id) {
 		Book book = bookService.findOne(id);
-		model.addAttribute("book", book);
-		return "{\"msg\":\"success\"}";
+		book.setImage(bookService.getBookImage(id));
+		book.setContent(bookService.getBookContent(id));
+		return book;
 	}
 
 
