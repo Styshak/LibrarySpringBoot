@@ -123,7 +123,7 @@
 
 			<div class="row row-marging">
 				<div class="col-sm-12 col-lg-12 col-md-12">
-					<a href="#" class="btn btn-success pull-right" role="button" data-toggle="modal" data-target="#myModal"><spring:message code="add.book"/></a>
+					<a href="#" class="btn btn-success pull-right" role="button" id="btn-add-book"><spring:message code="add.book"/></a>
 					<h4><spring:message code="books.count"/> ${books.totalElements}</h4>
 				</div>
 			</div>
@@ -145,12 +145,12 @@
 								<p><strong><spring:message code="publisher"/></strong> ${book.publisher.name}</p>
 								<p><strong><spring:message code="isbn"/></strong> ${book.isbn}</p>
 								<p>
-									<a href="/read/book/${book.id}" class="btn btn-default btn-edit-book btn-xs" role="button"><spring:message code="read_btn"/></a>
-									<a href="/save/book/${book.id}" class="btn btn-default btn-edit-book pull-right btn-xs" role="button"><spring:message code="download_btn"/></a>
+									<a href="/read/book/${book.id}" class="btn btn-default btn-book btn-xs" role="button"><spring:message code="read_btn"/></a>
+									<a href="/save/book/${book.id}" class="btn btn-default btn-book pull-right btn-xs" role="button"><spring:message code="download_btn"/></a>
 								</p>
 								<p>
-									<a href="javascript: void(0)" onclick="editBook('${book.id}')" class="btn btn-default btn-edit-book btn-xs" role="button"><spring:message code="edit_btn" /></a>
-									<a href="#" class="btn btn-danger btn-edit-book pull-right btn-xs" role="button"><spring:message code="delete_btn"/></a>
+									<a href="javascript: void(0)" class="btn btn-default btn-edit-book btn-xs" role="button" data-book-id=${book.id}><spring:message code="edit_btn" /></a>
+									<a href="javascript: void(0)" class="btn btn-danger btn-book pull-right btn-xs" role="button"><spring:message code="delete_btn"/></a>
 								</p>
 							</div>
 							<div class="ratings">

@@ -33,14 +33,14 @@
 							<spring:bind path="pageCount">
 								<div class="form-group">
 									<div class="input-group" style="width: 100%">
-										<form:input type="text" path="pageCount" class="form-control" placeholder="Кол-во страниц"/>
+										<form:input type="text" path="pageCount" class="form-control" placeholder="Кол-во страниц" id="pageCount"/>
 									</div>
 								</div>
 							</spring:bind>
 							<spring:bind path="isbn">
 								<div class="form-group">
 									<div class="input-group" style="width: 100%">
-										<form:input type="text" path="isbn" class="form-control" placeholder="ISBN"/>
+										<form:input type="text" path="isbn" class="form-control" placeholder="ISBN" id="isbn"/>
 									</div>
 								</div>
 							</spring:bind>
@@ -48,7 +48,7 @@
 								<div class="form-group">
 									<div class="input-group" style="width: 100%">
 										<form:select path="genre" class="form-control" >
-											<form:options items="${genreService.findAll()}" itemLabel="name" />
+											<form:options items="${genreService.findAll()}" itemLabel="name" id="genre"/>
 										</form:select>
 									</div>
 								</div>
@@ -57,7 +57,7 @@
 								<div class="form-group">
 									<div class="input-group" style="width: 100%">
 										<form:select path="author" class="form-control" >
-											<form:options items="${authorService.findAll()}" itemLabel="name" />
+											<form:options items="${authorService.findAll()}" itemLabel="name" id="author"/>
 										</form:select>
 									</div>
 								</div>
@@ -67,7 +67,7 @@
 								<div class="form-group">
 									<div class="input-group" style="width: 100%">
 										<form:select path="publisher" class="form-control" >
-											<form:options items="${publisherService.findAll()}" itemLabel="name" />
+											<form:options items="${publisherService.findAll()}" itemLabel="name" id="publisher"/>
 										</form:select>
 									</div>
 								</div>
@@ -75,27 +75,27 @@
 							<spring:bind path="publishYear">
 								<div class="form-group">
 									<div class="input-group" style="width: 100%">
-										<form:input type="text" path="publishYear" class="form-control" placeholder="Год выпуска"/>
+										<form:input type="text" path="publishYear" class="form-control" placeholder="Год выпуска" id="publishYear"/>
 									</div>
 								</div>
 							</spring:bind>
 							<spring:bind path="description">
 								<div class="form-group">
 									<div class="input-group" style="width: 100%">
-										<form:textarea type="text" path="description" class="form-control" placeholder="Описание" rows="5"/>
+										<form:textarea type="text" path="description" class="form-control" placeholder="Описание" rows="5" id="description"/>
 									</div>
 								</div>
 							</spring:bind>
 
 							<div class="form-group">
 								<div class="input-group" style="width: 100%">
-									<input type="file" class="form-control filestyle" name="image" data-buttonText="Выберите обложку"/>
+									<input type="file" class="form-control filestyle" name="image" data-buttonText="Выберите обложку" id="bookImage" data-placeholder="No file selected"/>
 								</div>
 							</div>
 
 							<div class="form-group">
 								<div class="input-group" style="width: 100%">
-									<input type="file" class="form-control filestyle" name="content" data-buttonText="Выберите книгу"/>
+									<input type="file" class="form-control filestyle" name="content" data-buttonText="Выберите книгу" id="bookContent" data-placeholder="No file selected"/>
 								</div>
 							</div>
 
