@@ -150,7 +150,7 @@
 								</p>
 								<p>
 									<a href="javascript: void(0)" class="btn btn-default btn-edit-book btn-xs" role="button" data-book-id=${book.id}><spring:message code="edit_btn" /></a>
-									<a href="javascript: void(0)" class="btn btn-danger btn-book pull-right btn-xs" role="button"><spring:message code="delete_btn"/></a>
+									<a href="/delete/book/${book.id}?currentRequest=${requestScope['javax.servlet.forward.request_uri']}" class="btn btn-danger btn-book pull-right btn-xs" role="button"><spring:message code="delete_btn"/></a>
 								</p>
 							</div>
 							<div class="ratings">

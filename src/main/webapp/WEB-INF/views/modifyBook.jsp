@@ -1,5 +1,6 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -12,7 +13,7 @@
 </head>
 <body>
 <!-- Modal -->
-<form:form method="post" modelAttribute="book" id="modalForm" action="/addBook?currentRequest=${requestScope['javax.servlet.forward.request_uri']}">
+<form:form method="post" modelAttribute="book" id="modalForm" action="/saveOrUpdateBook?currentRequest=${requestScope['javax.servlet.forward.request_uri']}">
 	<div class="container">
 		<div class="container">
 			<div class="modal fade" id="myModal" role="dialog">
@@ -20,31 +21,42 @@
 					<div class="modal-content">
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal">&times;</button>
-							<h4 class="modal-title">Modal Header</h4>
+
+							<c:choose>
+								<c:when test="${book['id'] eq 0}">
+									<h4 class="modal-title">Add book</h4>
+								</c:when>
+								<c:otherwise>
+									<h4 class="modal-title">Update Book</h4>
+								</c:otherwise>
+							</c:choose>
+
 						</div>
 						<div class="modal-body">
-							<spring:bind path="name">
+
+								<form:input type="hidden" path="id" class="form-control" id="id"/>
+
 								<div class="form-group">
 									<div class="input-group" style="width: 100%">
 										<form:input type="text" path="name" class="form-control" placeholder="Название" id="name"/>
 									</div>
 								</div>
-							</spring:bind>
-							<spring:bind path="pageCount">
+
+
 								<div class="form-group">
 									<div class="input-group" style="width: 100%">
 										<form:input type="text" path="pageCount" class="form-control" placeholder="Кол-во страниц" id="pageCount"/>
 									</div>
 								</div>
-							</spring:bind>
-							<spring:bind path="isbn">
+
+
 								<div class="form-group">
 									<div class="input-group" style="width: 100%">
 										<form:input type="text" path="isbn" class="form-control" placeholder="ISBN" id="isbn"/>
 									</div>
 								</div>
-							</spring:bind>
-							<spring:bind path="genre">
+
+
 								<div class="form-group">
 									<div class="input-group" style="width: 100%">
 										<form:select path="genre" class="form-control" >
@@ -52,8 +64,8 @@
 										</form:select>
 									</div>
 								</div>
-							</spring:bind>
-							<spring:bind path="author">
+
+
 								<div class="form-group">
 									<div class="input-group" style="width: 100%">
 										<form:select path="author" class="form-control" >
@@ -61,9 +73,8 @@
 										</form:select>
 									</div>
 								</div>
-								<form:errors path="author"/>
-							</spring:bind>
-							<spring:bind path="publisher">
+
+
 								<div class="form-group">
 									<div class="input-group" style="width: 100%">
 										<form:select path="publisher" class="form-control" >
@@ -71,21 +82,21 @@
 										</form:select>
 									</div>
 								</div>
-							</spring:bind>
-							<spring:bind path="publishYear">
+
+
 								<div class="form-group">
 									<div class="input-group" style="width: 100%">
 										<form:input type="text" path="publishYear" class="form-control" placeholder="Год выпуска" id="publishYear"/>
 									</div>
 								</div>
-							</spring:bind>
-							<spring:bind path="description">
+
+
 								<div class="form-group">
 									<div class="input-group" style="width: 100%">
 										<form:textarea type="text" path="description" class="form-control" placeholder="Описание" rows="5" id="description"/>
 									</div>
 								</div>
-							</spring:bind>
+
 
 							<div class="form-group">
 								<div class="input-group" style="width: 100%">
@@ -111,10 +122,6 @@
 	</div>
 </form:form>
 <!-- Modal -->
-
-<script type="javascript">
-
-</script>
 
 </body>
 </html>

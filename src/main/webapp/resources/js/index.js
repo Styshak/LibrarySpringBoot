@@ -37,6 +37,7 @@ $(document).on("click", ".btn-edit-book", function (e) {
         timeout : 1000,
         success : function(data) {
             if(data !== null) {
+                $('#id').val(data.id);
                 $('#name').val(data.name);
                 $('#pageCount').val(data.pageCount);
                 $('#isbn').val(data.isbn);

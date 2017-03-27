@@ -63,6 +63,23 @@ public class BookService {
 		return bookRepository.findOne(id);
 	}
 
+	@Transactional
+	public Book save(Book book) {
+		Book b = bookRepository.save(book);
+		if(book.getImage().length > 0) {
+			bookRepository.updateImage(b.getId(), book.getImage());
+		}
+		if(book.getContent().length > 0) {
+
+		}
+		return b;
+	}
+
+	@Transactional
+	public void delete(long bookId) {
+		bookRepository.delete(bookId);
+	}
+
 	private PageRequest getPageRequest(int pageNumber) {
 		return new PageRequest(pageNumber -1, PAGE_SIZE, SORTING);
 	}

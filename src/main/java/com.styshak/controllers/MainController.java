@@ -120,6 +120,13 @@ public class MainController {
 		response.flushBuffer();
 	}
 
+	@RequestMapping (value="/delete/book/{id}", method = RequestMethod.GET)
+	public String deleteBook (@PathVariable long id,
+							@RequestParam(value = "currentRequest") String currentRequest) throws Exception {
+		bookService.delete(id);
+		return "redirect:" + currentRequest;
+	}
+
 	@RequestMapping (value="/read/book/{id}", method = RequestMethod.GET)
 	public void readBook(@PathVariable final long id,
 						 HttpServletResponse response) throws Exception {
@@ -133,10 +140,10 @@ public class MainController {
 		response.flushBuffer();
 	}
 
-	@RequestMapping(value = "/addBook", method = RequestMethod.POST)
+	@RequestMapping(value = "/saveOrUpdateBook", method = RequestMethod.POST)
 	public String addBook(@RequestParam(value = "currentRequest") String currentRequest,
-						  @ModelAttribute("book") Book book,
-						  BindingResult bindingResult) {
+						  @ModelAttribute("book") Book book) {
+		bookService.save(book);
 		return "redirect:" + currentRequest;
 	}
 
