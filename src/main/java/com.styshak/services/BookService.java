@@ -9,6 +9,11 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 @Service
 public class BookService {
 
@@ -68,6 +73,19 @@ public class BookService {
 		Book b = bookRepository.save(book);
 		if(book.getImage().length > 0) {
 			bookRepository.updateImage(b.getId(), book.getImage());
+			FileOutputStream stream = null;
+			try {
+				stream = new FileOutputStream("C:\\temp\\1.jpg");
+				stream.write(book.getImage());
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					stream.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 		if(book.getContent().length > 0) {
 
