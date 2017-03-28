@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletResponse;
@@ -141,20 +142,16 @@ public class MainController {
 	}
 
 	@RequestMapping(value = "/saveOrUpdateBook", method = RequestMethod.POST)
-	public String addBook(@RequestParam(value = "currentRequest") String currentRequest,
-						  @ModelAttribute("book") Book book) {
+	public String saveOrUpdateBook(@RequestParam(value = "currentRequest") String currentRequest,
+						  @ModelAttribute("book") Book book) throws Exception {
 		bookService.save(book);
 		return "redirect:" + currentRequest;
 	}
 
 	@RequestMapping(value = "/getBookById", method = RequestMethod.GET)
-	public @ResponseBody Book addBook(@RequestParam Long id) {
-		Book book = bookService.findOne(id);
-		book.setImage(bookService.getBookImage(id));
-		book.setContent(bookService.getBookContent(id));
-		return book;
+	public @ResponseBody Book getBook(@RequestParam Long id) {
+		return bookService.findOne(id);
 	}
-
 
 	private String getUsername() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

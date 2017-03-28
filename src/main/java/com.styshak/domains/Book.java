@@ -1,8 +1,13 @@
 package com.styshak.domains;
 
 import lombok.Data;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.io.Serializable;
 
 @Entity
@@ -20,7 +25,7 @@ public class Book implements Serializable {
 	private String name;
 
 	@Transient
-	private byte[] content;
+	private MultipartFile content;
 
 	@Column(name = "page_count")
 	private Integer pageCount;
@@ -29,22 +34,25 @@ public class Book implements Serializable {
 	private String isbn;
 
 	@JoinColumn(name = "genre_id")
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Genre genre;
 
 	@JoinColumn(name = "author_id")
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Author author;
 
 	@Column(name = "publish_year")
 	private Integer publishYear;
 
 	@JoinColumn(name = "publisher_id")
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Publisher publisher;
 
 	@Transient
-	private byte[] image;
+	private MultipartFile image;
 
 	@Column
 	private String description;

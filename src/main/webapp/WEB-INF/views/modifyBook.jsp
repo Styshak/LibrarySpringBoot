@@ -13,7 +13,7 @@
 </head>
 <body>
 <!-- Modal -->
-<form:form method="post" modelAttribute="book" id="modalForm" action="/saveOrUpdateBook?currentRequest=${requestScope['javax.servlet.forward.request_uri']}">
+<form:form method="post" modelAttribute="book" id="modalForm" enctype="multipart/form-data" action="/saveOrUpdateBook?currentRequest=${requestScope['javax.servlet.forward.request_uri']}">
 	<div class="container">
 		<div class="container">
 			<div class="modal fade" id="myModal" role="dialog">
@@ -22,14 +22,7 @@
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal">&times;</button>
 
-							<c:choose>
-								<c:when test="${book['id'] eq 0}">
-									<h4 class="modal-title">Add book</h4>
-								</c:when>
-								<c:otherwise>
-									<h4 class="modal-title">Update Book</h4>
-								</c:otherwise>
-							</c:choose>
+							<h4 class="modal-title" id="modalTitle"></h4>
 
 						</div>
 						<div class="modal-body">
@@ -100,13 +93,13 @@
 
 							<div class="form-group">
 								<div class="input-group" style="width: 100%">
-									<input type="file" class="form-control filestyle" name="image" data-buttonText="Выберите обложку" id="bookImage" data-placeholder="No file selected"/>
+									<input type="file" class="form-control filestyle" name="image" data-buttonText="Выберите обложку" id="bookImage" data-placeholder=""/>
 								</div>
 							</div>
 
 							<div class="form-group">
 								<div class="input-group" style="width: 100%">
-									<input type="file" class="form-control filestyle" name="content" data-buttonText="Выберите книгу" id="bookContent" data-placeholder="No file selected"/>
+									<input type="file" class="form-control filestyle" name="content" data-buttonText="Выберите книгу" id="bookContent" data-placeholder=""/>
 								</div>
 							</div>
 

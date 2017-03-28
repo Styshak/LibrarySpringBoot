@@ -36,4 +36,8 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 	@Modifying
 	@Query(value = "UPDATE book SET image = :image WHERE id = :bookId", nativeQuery = true)
 	void updateImage(@Param("bookId") long bookId, @Param("image") byte[] image);
+
+	@Modifying
+	@Query(value = "UPDATE book SET content = :content WHERE id = :bookId", nativeQuery = true)
+	void updateContent(@Param("bookId") long bookId, @Param("content") byte[] content);
 }

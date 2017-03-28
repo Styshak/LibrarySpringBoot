@@ -1,27 +1,3 @@
-/*function editBook(bookId) {
-    var data = {
-        id: bookId
-    };
-    $.ajax({
-        type : "GET",
-        url : "/getBookById",
-        data: data,
-        dataType : 'json',
-        timeout : 100000,
-        success : function(data) {
-            //$('#myModal').modal('show');
-            $('myModal').on('show.bs.modal', function(e) {
-
-                //get data-id attribute of the clicked element
-                var bookId = $(e.relatedTarget).data('book-id');
-
-                //populate the textbox
-                $(e.currentTarget).find('input[name="bookId"]').val(bookId);
-            });
-        }
-    });
-}*/
-
 $(document).on("click", ".btn-edit-book", function (e) {
     e.preventDefault();
     var _self = $(this);
@@ -37,6 +13,7 @@ $(document).on("click", ".btn-edit-book", function (e) {
         timeout : 1000,
         success : function(data) {
             if(data !== null) {
+                $('#modalTitle').html("Update book");
                 $('#id').val(data.id);
                 $('#name').val(data.name);
                 $('#pageCount').val(data.pageCount);
@@ -55,7 +32,7 @@ $(document).on("click", ".btn-edit-book", function (e) {
 });
 
 $(document).on("click", "#btn-add-book", function (e) {
-    e.preventDefault();
+    $('#modalTitle').html("Add book");
     $('#name').val("");
     $('#pageCount').val("");
     $('#isbn').val("");

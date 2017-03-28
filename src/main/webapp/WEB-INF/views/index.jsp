@@ -123,7 +123,7 @@
 
 			<div class="row row-marging">
 				<div class="col-sm-12 col-lg-12 col-md-12">
-					<a href="#" class="btn btn-success pull-right" role="button" id="btn-add-book"><spring:message code="add.book"/></a>
+					<a href="javascript: void(0)" class="btn btn-success pull-right" role="button" id="btn-add-book"><spring:message code="add.book"/></a>
 					<h4><spring:message code="books.count"/> ${books.totalElements}</h4>
 				</div>
 			</div>

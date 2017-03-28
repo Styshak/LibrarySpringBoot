@@ -8,6 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -69,26 +70,15 @@ public class BookService {
 	}
 
 	@Transactional
-	public Book save(Book book) {
+	public Book save(Book book) throws Exception {
+		MultipartFile image = book.getImage();
+		MultipartFile content = book.getContent();
 		Book b = bookRepository.save(book);
-		if(book.getImage().length > 0) {
-			bookRepository.updateImage(b.getId(), book.getImage());
-			FileOutputStream stream = null;
-			try {
-				stream = new FileOutputStream("C:\\temp\\1.jpg");
-				stream.write(book.getImage());
-			} catch (Exception e) {
-				e.printStackTrace();
-			} finally {
-				try {
-					stream.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
+		if(!image.isEmpty()) {
+			bookRepository.updateImage(b.getId(), image.getBytes());
 		}
-		if(book.getContent().length > 0) {
-
+		if(!content.isEmpty()) {
+			bookRepository.updateContent(b.getId(), content.getBytes());
 		}
 		return b;
 	}
