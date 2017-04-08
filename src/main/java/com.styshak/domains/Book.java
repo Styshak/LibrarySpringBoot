@@ -1,6 +1,9 @@
 package com.styshak.domains;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.web.multipart.MultipartFile;
@@ -12,7 +15,9 @@ import java.io.Serializable;
 
 @Entity
 @Table
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
 public class Book implements Serializable {
 
 	private static final long serialVersionUID = 159248281475168177L;
@@ -23,9 +28,6 @@ public class Book implements Serializable {
 
 	@Column
 	private String name;
-
-	@Transient
-	private MultipartFile content;
 
 	@Column(name = "page_count")
 	private Integer pageCount;
@@ -51,9 +53,6 @@ public class Book implements Serializable {
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Publisher publisher;
 
-	@Transient
-	private MultipartFile image;
-
 	@Column
 	private String description;
 
@@ -62,4 +61,10 @@ public class Book implements Serializable {
 
 	@Column(name = "vote_count")
 	private long voteCount;
+
+	@Transient
+	private MultipartFile content;
+
+	@Transient
+	private MultipartFile image;
 }

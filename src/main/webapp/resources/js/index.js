@@ -1,5 +1,9 @@
 $(document).on("click", ".btn-edit-book", function (e) {
-    e.preventDefault();
+    resetValidation($("#modalForm"));
+    $('#bookImage').rules('remove', 'required');
+    $('#bookContent').rules('remove', 'required');
+    $('.btn-save').html('Update');
+
     var _self = $(this);
     var bookId = _self.data('book-id');
     var data = {
@@ -32,6 +36,11 @@ $(document).on("click", ".btn-edit-book", function (e) {
 });
 
 $(document).on("click", "#btn-add-book", function (e) {
+    resetValidation($("#modalForm"));
+    $('#bookImage').rules('add', 'required');
+    $('#bookContent').rules('add', 'required');
+    $('.btn-save').html('Add');
+
     $('#modalTitle').html("Add book");
     $('#name').val("");
     $('#pageCount').val("");
@@ -45,3 +54,10 @@ $(document).on("click", "#btn-add-book", function (e) {
     $('#bookContent').filestyle('placeholder', 'Книга не выбрана');
     $('#myModal').modal('show');
 });
+
+function resetValidation(form) {
+    var validator = form.validate();
+    validator.resetForm();
+    form.find('.error').removeClass("error");
+    form[0].reset();
+}

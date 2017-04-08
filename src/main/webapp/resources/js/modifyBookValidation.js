@@ -58,7 +58,16 @@ $(function() {
 			content: {
 				required: "Обязательное поле для заполнения",
 				extension: "Неправильный формат. Разрешен pdf"
-			}
+			},
+            genre: {
+                required: "Обязательное поле для заполнения"
+            },
+            author: {
+                required: "Обязательное поле для заполнения"
+            },
+            publisher: {
+                required: "Обязательное поле для заполнения"
+            }
 		},
 		submitHandler: function(form) {
 			form.submit();

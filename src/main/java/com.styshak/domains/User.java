@@ -1,9 +1,7 @@
 package com.styshak.domains;
 
 
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.Getter;
+import lombok.*;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
@@ -13,9 +11,11 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-@Data
 @Entity
 @Table
+@Getter
+@Setter
+@NoArgsConstructor
 public class User implements UserDetails, Serializable, Cloneable {
 
 	private static final long serialVersionUID = -6053559825507903283L;

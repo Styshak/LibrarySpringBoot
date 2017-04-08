@@ -1,13 +1,17 @@
 package com.styshak.domains;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
 @Table
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
 public class Author implements Serializable {
 
 	private static final long serialVersionUID = 5817222898158807483L;
