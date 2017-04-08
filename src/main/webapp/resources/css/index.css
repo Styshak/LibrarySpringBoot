@@ -7,10 +7,10 @@ body {
 	white-space: nowrap;
 }
 
-.thumbnail img {
-	height: 350px;
-	width: 100%
-}
+/*.thumbnail img {*/
+	/*height: 350px;*/
+	/*width: 100%*/
+/*}*/
 
 .ratings {
 	padding-right: 10px;
