@@ -2,6 +2,7 @@ package com.styshak.services;
 
 import com.styshak.domains.Book;
 import com.styshak.repositories.BookRepository;
+import net.coobird.thumbnailator.Thumbnails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -10,10 +11,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 @Service
 public class BookService {
@@ -75,7 +75,7 @@ public class BookService {
 		MultipartFile content = book.getContent();
 		Book b = bookRepository.save(book);
 		if(!image.isEmpty()) {
-			bookRepository.updateImage(b.getId(), image.getBytes());
+			bookRepository.updateImage(b.getId(), resizeImage(900, 1320, image.getInputStream()));
 		}
 		if(!content.isEmpty()) {
 			bookRepository.updateContent(b.getId(), content.getBytes());
@@ -90,5 +90,15 @@ public class BookService {
 
 	private PageRequest getPageRequest(int pageNumber) {
 		return new PageRequest(pageNumber -1, PAGE_SIZE, SORTING);
+	}
+
+	private byte[] resizeImage(int width, int heght, InputStream inputStream) {
+		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+		try {
+			Thumbnails.of(inputStream).forceSize(width, heght).toOutputStream(outputStream);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return outputStream.toByteArray();
 	}
 }

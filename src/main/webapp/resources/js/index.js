@@ -61,3 +61,39 @@ function resetValidation(form) {
     form.find('.error').removeClass("error");
     form[0].reset();
 }
+
+
+$(document).on("click", ".star", function (e) {
+	var _self = $(this);
+	var cost = _self.data('cost');
+	var bookId = _self.data('book-id');
+	var currentRequest = _self.data('current-request');
+	var data = {
+		bookId: bookId,
+        cost: cost,
+		currentRequest: currentRequest
+	};
+	$.ajax({
+		type : "POST",
+		url : "/voteBook",
+		data: data,
+		dataType : 'json',
+		timeout : 1000,
+		success : function(data) {
+
+		}
+	});
+});
+
+
+$(document).on({
+	mouseenter: function () {
+
+	},
+	mouseleave: function () {
+
+	}
+}, ".glyphicon-star-empty");
+
+
+

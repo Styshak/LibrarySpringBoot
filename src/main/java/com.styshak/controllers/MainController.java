@@ -13,10 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletResponse;
@@ -151,6 +148,13 @@ public class MainController {
 	@RequestMapping(value = "/getBookById", method = RequestMethod.GET)
 	public @ResponseBody Book getBook(@RequestParam Long id) {
 		return bookService.findOne(id);
+	}
+
+	@RequestMapping(value = "/voteBook", method = RequestMethod.POST)
+	public String voteBook(@RequestParam(value = "currentRequest") String currentRequest,
+						   @RequestParam(value = "bookId") Long bookId,
+						   @RequestParam(value = "cost") Long cost) {
+		return "redirect:" + currentRequest;
 	}
 
 	private String getUsername() {

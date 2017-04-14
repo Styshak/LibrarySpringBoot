@@ -7,15 +7,25 @@ body {
 	white-space: nowrap;
 }
 
-/*.thumbnail img {*/
-	/*height: 350px;*/
-	/*width: 100%*/
-/*}*/
+.thumbnail img {
+	width: 100%
+}
 
 .ratings {
 	padding-right: 10px;
 	padding-left: 10px;
-	color: #d17581;
+}
+
+.glyphicon-star-empty:hover {
+	color: yellowgreen;
+}
+
+.glyphicon-star-empty {
+	color: black;
+}
+
+a, a.star:hover, a.star:active, a.star:visited, a.star:focus {
+	text-decoration:none;
 }
 
 .thumbnail {

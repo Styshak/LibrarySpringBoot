@@ -121,7 +121,7 @@
 				</div>
 			</div>
 
-			<div class="row row-marging">
+			<div class="row">
 				<div class="col-sm-12 col-lg-12 col-md-12">
 					<a href="javascript: void(0)" class="btn btn-success pull-right" role="button" id="btn-add-book"><spring:message code="add.book"/></a>
 					<h4><spring:message code="books.count"/> ${books.totalElements}</h4>
@@ -156,11 +156,21 @@
 							<div class="ratings">
 								<p class="pull-right">15 <spring:message code="reviews"/></p>
 								<p>
-									<span class="glyphicon glyphicon-star"></span>
-									<span class="glyphicon glyphicon-star"></span>
-									<span class="glyphicon glyphicon-star"></span>
-									<span class="glyphicon glyphicon-star"></span>
-									<span class="glyphicon glyphicon-star"></span>
+									<a href="javascript: void(0)" class="star" data-cost="1" data-book-id='${book.id}' data-current-request='${requestScope['javax.servlet.forward.request_uri']}'>
+										<span class="glyphicon glyphicon-star-empty"></span>
+									</a>
+									<a href="javascript: void(0)" class="star" data-cost="2" data-book-id='${book.id}' data-current-request='${requestScope['javax.servlet.forward.request_uri']}'>
+										<span class="glyphicon glyphicon-star-empty"></span>
+									</a>
+									<a href="javascript: void(0)" class="star" data-cost="3" data-book-id='${book.id}' data-current-request='${requestScope['javax.servlet.forward.request_uri']}'>
+										<span class="glyphicon glyphicon-star-empty"></span>
+									</a>
+									<a href="javascript: void(0)" class="star" data-cost="4" data-book-id='${book.id}' data-current-request='${requestScope['javax.servlet.forward.request_uri']}'>
+										<span class="glyphicon glyphicon-star-empty"></span>
+									</a>
+									<a href="javascript: void(0)" class="star" data-cost="5" data-book-id='${book.id}' data-current-request='${requestScope['javax.servlet.forward.request_uri']}'>
+										<span class="glyphicon glyphicon-star-empty"></span>
+									</a>
 								</p>
 							</div>
 						</div>
